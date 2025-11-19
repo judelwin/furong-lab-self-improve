@@ -20,7 +20,7 @@ def main():
     model = SentenceTransformer(EMB_MODEL, device="cpu")
     print("Model loaded. Reading and encoding data in batches...")
 
-    batch_size = 1000
+    batch_size = 10000
     ids = []
     all_dim = None
     index = None
