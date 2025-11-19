@@ -20,11 +20,9 @@ def main():
             topic = clean(row.get("topic"))
             difficulty = float(row.get("difficulty")) if row.get("difficulty") is not None else None
 
-            r1s = [
-                clean(row.get("r1_solution_1")),
-                clean(row.get("r1_solution_2")),
-                clean(row.get("r1_solution_3")),
-            ]
+            r1 = clean(row.get("r1_solution_1"))
+            r2 = clean(row.get("r1_solution_2"))
+            r3 = clean(row.get("r1_solution_3"))
             # build a stable id from core fields
             rid = make_id(question + final_answer + topic + str(difficulty))
 
@@ -34,7 +32,9 @@ def main():
                 "final_answer": final_answer,
                 "difficulty": difficulty,
                 "topic": topic,
-                "r1_solutions": r1s,
+                "r1": r1,
+                "r2": r2,
+                "r3": r3,
             }
             f.write(ujson.dumps(obj, ensure_ascii=False) + "\n")
 

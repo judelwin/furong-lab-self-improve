@@ -34,6 +34,8 @@ class Retriever:
                 "final_answer": item.get("final_answer"),
                 "topic": item.get("topic"),
                 "difficulty": item.get("difficulty"),
-                "r1_short": (item.get("r1_solutions") or [""])[0]
+                "r1": item.get("r1", ""),
+                "r2": item.get("r2", ""),
+                "r3": item.get("r3", "")
             })
         return hits

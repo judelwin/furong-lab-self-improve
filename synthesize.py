@@ -15,16 +15,19 @@ def print_and_save_topk(query, topk, output_file="topk_results.jsonl"):
                 "difficulty": h.get("difficulty", None),
                 "question": h.get("question", None)
             }
-            f.write(ujson.dumps(out_obj, ensure_ascii=False, indent=2) + "\n")
+            f.write(ujson.dumps(out_obj, ensure_ascii=False) + "\n")
+
 def build_references_block(chosen):
     blocks = []
     for h in chosen:
-        core = (h.get("r1_short") or "").strip().replace("\n", " ")
-        if len(core) > 300:
-            core = core[:300] + "…"
+        r1 = (h.get("r1") or "").strip().replace("\n", " ")
+        r2 = (h.get("r2") or "").strip().replace("\n", " ")
+        r3 = (h.get("r3") or "").strip().replace("\n", " ")
         blocks.append(
             f"[{h['id']} | topic: {h.get('topic','?')} | diff: {h.get('difficulty','?')}]\n"
-            f"Core idea: {core}\n"
+            f"Reference r1: {r1}\n"
+            f"Reference r2: {r2}\n"
+            f"Reference r3: {r3}\n"
             f"Final answer in ref: {h.get('final_answer','?')}\n"
         )
     return "\n".join(blocks)
