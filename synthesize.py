@@ -3,7 +3,11 @@ import ujson
 def print_and_save_topk(query, topk, output_file="topk_results.jsonl"):
     print(f"Query: {query}\n")
     print("Top-k similar questions:")
-    with open(output_file, "w", encoding="utf-8") as f:
+    # Use Google Drive path if running in Colab
+    import os
+    colab_drive_path = "/content/drive/MyDrive/DeepMathBackup/topk_results.jsonl"
+    out_path = colab_drive_path if os.path.exists("/content/drive/MyDrive") else output_file
+    with open(out_path, "w", encoding="utf-8") as f:
         for i, h in enumerate(topk):
             print(f"{i+1}. [id: {h['id']}] sim={h.get('score', '?'):.3f} topic={h.get('topic', '?')} diff={h.get('difficulty', '?')}")
             print(f"   Question: {h.get('question', '')}")
@@ -16,6 +20,7 @@ def print_and_save_topk(query, topk, output_file="topk_results.jsonl"):
                 "question": h.get("question", None)
             }
             f.write(ujson.dumps(out_obj, ensure_ascii=False) + "\n")
+    print(f"Top-k results written to: {out_path}")
 
 def build_references_block(chosen):
     blocks = []
