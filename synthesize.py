@@ -17,7 +17,8 @@ def print_and_save_topk(query, topk, output_file="topk_results.jsonl"):
                 "score": h.get("score", None),
                 "topic": h.get("topic", None),
                 "difficulty": h.get("difficulty", None),
-                "question": h.get("question", None)
+                "question": h.get("question", None),
+                "final_answer": h.get("final_answer", None)
             }
             f.write(ujson.dumps(out_obj, ensure_ascii=False) + "\n")
     print(f"Top-k results written to: {out_path}")
